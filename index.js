@@ -3,6 +3,9 @@ const app = express(); // 새로운 express app을 만듬
 const port = 5000; //5000번 포트를 백서버로
 //바디파서로 client에서 정보 받아올수있음
 const bodyParser = require('body-parser');
+
+const config = require('./config/key');
+
 const { User } = require("./models/User");
 
 //application/x-www-form-urlencoded 데이터를 분석해서 가져옴.
@@ -11,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 const mongoose = require('mongoose');
-mongoose.connect('mongodb+srv://lsh:dltjdgur123@cluster0.5jaze.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
+mongoose.connect(config.mongoURI, {
     useNewUrlParser: true, useUnifiedTopology: true
 }).then(() => console.log('MongoDB Connected...'))
 .catch(err => console.log(err));
